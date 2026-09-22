@@ -14,6 +14,7 @@ export interface Project {
   live?: string;
   featured: boolean;
   accentColor: string;
+  outcomes?: { label: string; value: string }[];
 }
 
 export interface SkillCategory {
@@ -38,7 +39,7 @@ export const profile = {
   location: "India",
   timezone: "IND / GMT+5:30",
   year: "2026",
-  email: "anuj.dev.portfolio@gmail.com",
+  email: "damnanuj09@gmail.com",
   secondaryEmail: "anuj@example.com",
   socials: {
     github: "https://github.com",
@@ -94,11 +95,16 @@ export const projects: Project[] = [
     stack: ["Flutter", "Dart", "SQLite", "Riverpod"],
     description: "A distraction-free focus timer and habit tracker engineered with tactile micro-interactions and strictly on-device local storage.",
     longDescription: "FocusLoop was built to solve the frustration of bloated productivity apps. It features gesture-based timing sessions, haptic feedback loops, and an offline-first SQLite database that never transmits user habits to external servers.",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
+    image: "/projects/focusloop.jpg",
     github: "https://github.com",
     live: "https://example.com/focusloop",
     featured: true,
     accentColor: "#315CFF", // Electric Blue
+    outcomes: [
+      { label: "Storage", value: "On-device SQLite" },
+      { label: "Privacy", value: "Zero cloud sync" },
+      { label: "Input", value: "Gesture + haptics" },
+    ],
   },
   {
     id: "02",
@@ -110,11 +116,16 @@ export const projects: Project[] = [
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "IndexedDB"],
     description: "A lightning-fast, keyboard-driven link curation suite designed to organize research, digital assets, and dev tools without friction.",
     longDescription: "A private bookmarks workspace featuring instant fuzzy search, nested collections, tag hierarchies, and automated OpenGraph metadata caching for swift visual previews.",
-    image: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1200&auto=format&fit=crop",
+    image: "/projects/linkloom.jpg",
     github: "https://github.com",
     live: "https://example.com/linkloom",
     featured: true,
     accentColor: "#FF642E", // Burnt Orange
+    outcomes: [
+      { label: "Search", value: "Instant fuzzy" },
+      { label: "Storage", value: "IndexedDB local" },
+      { label: "Flow", value: "Keyboard-first" },
+    ],
   },
   {
     id: "03",
@@ -212,6 +223,30 @@ export const skillsData: SkillCategory[] = [
       { name: "AI / ML", level: "Active Learning", description: "Machine learning fundamentals, Neural networks, LLM integrations", tag: "FUTURE" },
       { name: "WebGL / Three.js", level: "Active Learning", description: "Custom shaders, 3D math, Particle systems", tag: "GRAPHICS" },
     ],
+  },
+];
+
+export const services = [
+  {
+    id: "01",
+    title: "Web products",
+    description: "Fast, typed Next.js applications with editorial layouts, durable state, and interfaces that stay calm under real use.",
+    accent: "#315CFF",
+    tags: ["Next.js", "TypeScript", "Tailwind"],
+  },
+  {
+    id: "02",
+    title: "Mobile utilities",
+    description: "Focused Flutter apps that feel native: offline-first data, haptic timing, and screens that respect attention.",
+    accent: "#FF642E",
+    tags: ["Flutter", "Dart", "SQLite"],
+  },
+  {
+    id: "03",
+    title: "Motion systems",
+    description: "Interaction design that explains itself — springs, scroll choreography, and WebGL accents used only where they earn their keep.",
+    accent: "#9C8CFF",
+    tags: ["GSAP", "Framer Motion", "Three.js"],
   },
 ];
 
