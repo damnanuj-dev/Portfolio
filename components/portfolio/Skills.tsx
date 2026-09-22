@@ -39,36 +39,38 @@ export function Skills() {
       </div>
 
       {/* Category Filter Pills */}
-      <div className="flex flex-wrap items-center gap-2 mb-12">
-        <button
-          onClick={() => setActiveCategory("all")}
-          className={`px-4 py-1.5 rounded-full text-xs font-mono-tech transition-all cursor-pointer ${
-            activeCategory === "all"
-              ? "bg-white text-black font-semibold"
-              : "glass-panel text-[#8B8B86] hover:text-white border border-white/10"
-          }`}
-        >
-          ALL CATEGORIES
-        </button>
-        {skillsData.map((cat) => {
-          const Icon = categoryIcons[cat.category] || Code;
-          const isActive = activeCategory === cat.category;
+      <div className="mb-12 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex min-w-max items-center gap-2">
+          <button
+            onClick={() => setActiveCategory("all")}
+            className={`whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-mono-tech transition-all cursor-pointer ${
+              activeCategory === "all"
+                ? "bg-white text-black font-semibold"
+                : "glass-panel text-[#8B8B86] hover:text-white border border-white/10"
+            }`}
+          >
+            ALL CATEGORIES
+          </button>
+          {skillsData.map((cat) => {
+            const Icon = categoryIcons[cat.category] || Code;
+            const isActive = activeCategory === cat.category;
 
-          return (
-            <button
-              key={cat.category}
-              onClick={() => setActiveCategory(cat.category)}
-              className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-mono-tech transition-all cursor-pointer ${
-                isActive
-                  ? "bg-white text-black font-semibold"
-                  : "glass-panel text-[#8B8B86] hover:text-white border border-white/10"
-              }`}
-            >
-              <Icon className="w-3.5 h-3.5" />
-              <span>{cat.title}</span>
-            </button>
-          );
-        })}
+            return (
+              <button
+                key={cat.category}
+                onClick={() => setActiveCategory(cat.category)}
+                className={`whitespace-nowrap flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-mono-tech transition-all cursor-pointer ${
+                  isActive
+                    ? "bg-white text-black font-semibold"
+                    : "glass-panel text-[#8B8B86] hover:text-white border border-white/10"
+                }`}
+              >
+                <Icon className="w-3.5 h-3.5" />
+                <span>{cat.title}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Skills Grouped Cards */}
