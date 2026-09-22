@@ -41,7 +41,7 @@ export function Contact() {
         />
 
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 relative z-10">
-          <div>
+          <div className="w-full lg:max-w-[60%]">
             <span className="text-xs font-mono-tech text-[#8B8B86] uppercase tracking-widest block mb-2">
               DIRECT INBOX
             </span>
@@ -49,14 +49,14 @@ export function Contact() {
               {profile.email}
             </div>
             <p className="text-xs font-mono-tech text-[#8B8B86] mt-2">
-              TYPICAL RESPONSE TIME: WITHIN 24 HOURS
+              TYPICAL RESPONSE TIME: WITHIN 24 HOURS · PRESS ⌘K TO COPY EMAIL
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex w-full flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 lg:w-auto">
             <a
               href={`mailto:${profile.email}`}
-              className="px-6 py-3.5 rounded-full bg-[#F3F1EA] text-black font-sans font-medium text-sm hover:bg-white transition-all flex items-center gap-2 cursor-pointer shadow-lg transform hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#F3F1EA] text-black font-sans font-medium text-sm hover:bg-white transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg transform hover:scale-[1.02] active:scale-[0.98]"
             >
               <Mail className="w-4 h-4" />
               <span>START A CONVERSATION</span>
@@ -64,7 +64,7 @@ export function Contact() {
 
             <button
               onClick={copyEmail}
-              className="px-5 py-3.5 rounded-full glass-panel border border-white/15 text-[#F3F1EA] font-sans text-xs hover:border-white/30 transition-all flex items-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-5 py-3.5 rounded-full glass-panel border border-white/15 text-[#F3F1EA] font-sans text-xs hover:border-white/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               {copied ? (
                 <>
@@ -83,7 +83,7 @@ export function Contact() {
               href={profile.socials.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-3.5 rounded-full glass-panel border border-white/15 text-[#F3F1EA] font-sans text-xs hover:border-white/30 transition-all flex items-center gap-2"
+              className="w-full sm:w-auto px-5 py-3.5 rounded-full glass-panel border border-white/15 text-[#F3F1EA] font-sans text-xs hover:border-white/30 transition-all flex items-center justify-center gap-2"
             >
               <span>VIEW GITHUB</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
