@@ -95,7 +95,13 @@ export function About() {
           </div>
 
           <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono-tech text-[#8B8B86]">
-            <span>STATUS: ACTIVE</span>
+            <span className="inline-flex items-center gap-2">
+              <span className="relative flex size-1.5">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#C7FF41] opacity-60" />
+                <span className="relative inline-flex size-1.5 rounded-full bg-[#C7FF41]" />
+              </span>
+              STATUS: AVAILABLE
+            </span>
             <span className="text-[#C7FF41]">READY TO BUILD</span>
           </div>
         </div>
