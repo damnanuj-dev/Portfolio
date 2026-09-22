@@ -54,9 +54,9 @@ export function GlassDock() {
   return (
     <nav
       aria-label="Main Navigation"
-      className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 px-3 py-2"
+      className="fixed bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 z-40 px-2 py-2 w-[calc(100vw-1rem)] max-w-[calc(100vw-1.5rem)] sm:w-auto"
     >
-      <div className="glass-dock rounded-full px-2 md:px-4 py-1.5 md:py-2 flex items-center gap-1 md:gap-2 shadow-2xl border border-white/10">
+      <div className="glass-dock rounded-full px-1.5 sm:px-2 md:px-4 py-1.5 md:py-2 flex items-center justify-between gap-1 md:gap-2 shadow-2xl border border-white/10 w-full max-w-[280px] sm:max-w-none mx-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeSection === item.id;
@@ -65,7 +65,11 @@ export function GlassDock() {
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className="relative px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs font-mono-tech transition-colors duration-200 flex items-center gap-1.5 focus:outline-none focus-visible:ring-1 focus-visible:ring-white"
+              aria-label={item.label}
+              aria-current={isActive ? "page" : undefined}
+              className={`relative flex items-center justify-center rounded-full text-xs font-mono-tech transition-[padding,color] duration-200 ease-out focus:outline-none focus-visible:ring-1 focus-visible:ring-white cursor-pointer active:scale-[0.97] ${
+                isActive ? "px-3 py-2 sm:px-4" : "size-10 sm:size-auto sm:px-3 sm:py-2"
+              }`}
             >
               {isActive && (
                 <motion.div
@@ -75,19 +79,21 @@ export function GlassDock() {
                 />
               )}
 
-              <Icon
-                className={`w-3.5 h-3.5 relative z-10 transition-colors ${
-                  isActive ? "text-[#315CFF]" : "text-[#8B8B86]"
-                }`}
-              />
+              <div className="relative z-10 flex items-center gap-1.5 sm:gap-1.5">
+                <Icon
+                  className={`w-3.5 h-3.5 transition-colors ${
+                    isActive ? "text-[#315CFF]" : "text-[#8B8B86]"
+                  }`}
+                />
 
-              <span
-                className={`relative z-10 text-[11px] md:text-xs tracking-wider transition-colors ${
-                  isActive ? "text-[#F3F1EA] font-medium" : "text-[#8B8B86] hover:text-[#F3F1EA]"
-                }`}
-              >
-                {item.label}
-              </span>
+                <span
+                  className={`${isActive ? "inline" : "hidden"} sm:inline text-[11px] md:text-xs tracking-wider ${
+                    isActive ? "text-[#F3F1EA] font-medium" : "text-[#8B8B86] hover:text-[#F3F1EA]"
+                  }`}
+                >
+                  {item.label}
+                </span>
+              </div>
             </button>
           );
         })}
