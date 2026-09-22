@@ -18,7 +18,7 @@ function CounterItem({
   index: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -10% 0px" });
   const [displayVal, setDisplayVal] = useState(0);
 
   useEffect(() => {
@@ -62,7 +62,7 @@ function CounterItem({
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="relative p-6 md:p-8 glass-panel rounded-2xl flex flex-col justify-between border border-white/10 group hover:border-white/20 transition-all"
+      className="relative p-5 sm:p-6 md:p-8 glass-panel rounded-2xl flex flex-col justify-between border border-white/10 group hover:border-white/20 transition-all"
     >
       <div className="flex items-baseline justify-between mb-4">
         <span className="text-[11px] font-mono-tech tracking-widest text-[#8B8B86]">
@@ -72,9 +72,9 @@ function CounterItem({
       </div>
 
       <div className="my-3">
-        <div className="text-4xl md:text-5xl lg:text-6xl font-serif-display text-[#F3F1EA] tracking-tight">
+        <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif-display text-[#F3F1EA] tracking-tight">
           {displayVal}
-          <span className="text-[#315CFF] font-sans text-3xl md:text-4xl ml-1">
+          <span className="text-[#315CFF] font-sans text-xl sm:text-2xl md:text-3xl ml-1">
             {suffix}
           </span>
         </div>
