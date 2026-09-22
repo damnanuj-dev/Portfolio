@@ -1,16 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ExternalLink, X } from "lucide-react";
-import { FaGithub } from "react-icons/fa";
 import { projects, type Project } from "@/data/portfolio";
 
 export function FeaturedWork() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  // Filter only featured projects, excluding voidlab, snapling, and veryo
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedProject(null);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [selectedProject]);
+
   const featuredProjects = projects.filter(
     (project) =>
       project.featured &&
@@ -18,24 +33,22 @@ export function FeaturedWork() {
   );
 
   return (
-    <section id="work" className="w-full py-28 px-6 md:px-12 max-w-7xl mx-auto relative">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 border-b border-white/10 pb-8">
+    <section id="work" className="w-full py-20 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto relative">
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6 border-b border-white/10 pb-8">
         <div>
-          <span className="text-xs font-mono-tech tracking-[0.25em] text-[#315CFF] uppercase block mb-2">
+          <span className="text-[10px] sm:text-xs font-mono-tech tracking-[0.25em] text-[#315CFF] uppercase block mb-2">
             02 // SELECTED WORK
           </span>
-          <h2 className="text-4xl sm:text-6xl md:text-7xl font-serif-display text-[#F3F1EA] tracking-tight font-normal">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif-display text-[#F3F1EA] tracking-tight font-normal text-balance">
             Featured Projects
           </h2>
         </div>
-        <p className="text-sm font-sans text-[#8B8B86] max-w-md leading-relaxed">
-          Tactile applications and digital systems engineered with modern web and mobile frameworks. Focused on utility and craft.
+        <p className="text-sm font-sans text-[#8B8B86] max-w-md leading-relaxed text-pretty">
+          Shipped products with a clear job: keep people focused, keep research organized, and keep the interface out of the way.
         </p>
       </div>
 
-      {/* Projects List */}
-      <div className="flex flex-col gap-16 md:gap-24">
+      <div className="flex flex-col gap-8 md:gap-12 lg:gap-16">
         {featuredProjects.map((project) => {
           return (
             <motion.div
@@ -47,13 +60,10 @@ export function FeaturedWork() {
               className="group relative rounded-3xl glass-panel border border-white/10 overflow-hidden hover:border-white/20 transition-colors"
               data-cursor="project"
             >
-              {/* Project Card Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 md:p-10 lg:p-12 items-center">
-                {/* Left Information Column */}
-                <div className="lg:col-span-6 flex flex-col justify-between h-full space-y-6">
+              <div className="grid grid-cols-1 gap-6 p-4 sm:p-6 lg:grid-cols-12 lg:gap-8 lg:p-10 xl:p-12 items-center">
+                <div className="lg:col-span-6 flex flex-col justify-between h-full space-y-5 sm:space-y-6">
                   <div>
-                    {/* Top Metadata */}
-                    <div className="flex items-center justify-between text-xs font-mono-tech text-[#8B8B86] mb-4">
+                    <div className="flex items-center justify-between text-[10px] sm:text-xs font-mono-tech text-[#8B8B86] mb-4">
                       <span className="flex items-center gap-2">
                         <span
                           className="w-2 h-2 rounded-full"
@@ -64,39 +74,50 @@ export function FeaturedWork() {
                       <span>{project.year}</span>
                     </div>
 
-                    {/* Title */}
                     <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif-display text-[#F3F1EA] tracking-tight group-hover:text-white transition-colors">
                       {project.title}
                     </h3>
 
-                    <p className="text-xs font-mono-tech uppercase tracking-wider text-[#8B8B86] mt-1">
+                    <p className="text-[10px] sm:text-xs font-mono-tech uppercase tracking-wider text-[#8B8B86] mt-2">
                       {project.category} • {project.role}
                     </p>
 
-                    {/* Description */}
-                    <p className="text-sm sm:text-base font-sans text-[#8B8B86] leading-relaxed mt-6">
+                    <p className="text-sm sm:text-base font-sans text-[#8B8B86] leading-relaxed mt-5 sm:mt-6 text-pretty">
                       {project.description}
                     </p>
+
+                    {project.outcomes && (
+                      <dl className="mt-6 grid grid-cols-3 gap-2 sm:gap-3">
+                        {project.outcomes.map((outcome) => (
+                          <div key={outcome.label} className="rounded-2xl border border-white/10 bg-white/[0.03] px-2.5 sm:px-3 py-2.5">
+                            <dt className="text-[10px] font-mono-tech uppercase tracking-wider text-[#8B8B86]">
+                              {outcome.label}
+                            </dt>
+                            <dd className="mt-1 text-[11px] sm:text-sm text-[#F3F1EA] leading-snug">
+                              {outcome.value}
+                            </dd>
+                          </div>
+                        ))}
+                      </dl>
+                    )}
                   </div>
 
-                  {/* Tech Stack Pills */}
                   <div>
                     <div className="flex flex-wrap gap-2 pt-4 border-t border-white/5">
                       {project.stack.map((tech) => (
                         <span
                           key={tech}
-                          className="text-xs font-mono-tech text-[#8B8B86] bg-white/[0.04] px-3 py-1 rounded-full border border-white/5"
+                          className="text-[10px] sm:text-xs font-mono-tech text-[#8B8B86] bg-white/[0.04] px-2.5 sm:px-3 py-1 rounded-full border border-white/5"
                         >
                           {tech}
                         </span>
                       ))}
                     </div>
 
-                    {/* Action Links */}
-                    <div className="flex items-center gap-4 mt-8">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-6 sm:mt-8">
                       <button
                         onClick={() => setSelectedProject(project)}
-                        className="px-5 py-2.5 rounded-full bg-white text-black font-sans font-medium text-xs hover:bg-[#F3F1EA] transition-all flex items-center gap-2 cursor-pointer shadow-md"
+                        className="w-full sm:w-auto px-4 sm:px-5 py-2.5 rounded-full bg-white text-black font-sans font-medium text-[11px] sm:text-xs hover:bg-[#F3F1EA] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md"
                       >
                         <span>DETAILS & ARCHITECTURE</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
@@ -107,29 +128,17 @@ export function FeaturedWork() {
                           href={project.live}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2.5 rounded-full glass-panel border border-white/10 text-white hover:border-white/30 transition-colors"
-                          aria-label={`Open live link for ${project.title}`}
+                          className="w-full sm:w-auto px-4 py-2.5 rounded-full glass-panel border border-white/10 text-white hover:border-white/30 transition-colors flex items-center justify-center gap-2"
+                          aria-label={`Open live demo for ${project.title}`}
                         >
                           <ExternalLink className="w-4 h-4" />
-                        </a>
-                      )}
-
-                      {project.github && (
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2.5 rounded-full glass-panel border border-white/10 text-white hover:border-white/30 transition-colors"
-                          aria-label={`Open GitHub for ${project.title}`}
-                        >
-                          <FaGithub className="w-4 h-4" />
+                          <span className="text-[11px] sm:text-xs font-sans font-medium">LIVE DEMO</span>
                         </a>
                       )}
                     </div>
                   </div>
                 </div>
 
-                {/* Right Image Preview Column */}
                 <div className="lg:col-span-6 relative aspect-[16/10] rounded-2xl overflow-hidden border border-white/10 group-hover:border-white/20 transition-colors bg-[#111]">
                   <Image
                     src={project.image}
@@ -140,7 +149,6 @@ export function FeaturedWork() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/70 via-transparent to-transparent opacity-60" />
 
-                  {/* Corner Accent Badge */}
                   <div
                     className="absolute top-4 right-4 px-3 py-1 rounded-full text-[10px] font-mono-tech tracking-wider uppercase backdrop-blur-md border border-white/10 text-white"
                     style={{ backgroundColor: "rgba(10, 10, 10, 0.75)" }}
@@ -154,11 +162,9 @@ export function FeaturedWork() {
         })}
       </div>
 
-      {/* Project Details Modal */}
       <AnimatePresence>
         {selectedProject && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -167,15 +173,16 @@ export function FeaturedWork() {
               className="absolute inset-0 bg-black/80 backdrop-blur-md"
             />
 
-            {/* Modal Dialog */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto glass-panel rounded-3xl border border-white/20 p-6 sm:p-8 md:p-10 z-10 shadow-2xl bg-[#0D0D0D]"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="project-dialog-title"
+              className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto glass-panel rounded-3xl border border-white/20 p-5 sm:p-8 z-10 shadow-2xl bg-[#0D0D0D]"
             >
-              {/* Close Button */}
               <button
                 onClick={() => setSelectedProject(null)}
                 className="absolute top-6 right-6 p-2 rounded-full hover:bg-white/10 text-white transition-colors cursor-pointer"
@@ -194,14 +201,13 @@ export function FeaturedWork() {
                 <span>{selectedProject.year}</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl font-serif-display text-[#F3F1EA] mb-1">
+              <h2 id="project-dialog-title" className="text-3xl sm:text-4xl font-serif-display text-[#F3F1EA] mb-1">
                 {selectedProject.title}
               </h2>
               <p className="text-xs font-mono-tech text-[#315CFF] uppercase tracking-wider mb-6">
                 {selectedProject.role}
               </p>
 
-              {/* Image Preview */}
               <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden border border-white/10 mb-6">
                 <Image
                   src={selectedProject.image}
@@ -211,7 +217,6 @@ export function FeaturedWork() {
                 />
               </div>
 
-              {/* Long Description */}
               <div className="space-y-4 text-sm font-sans text-[#F3F1EA]/90 leading-relaxed mb-8">
                 <h4 className="text-xs font-mono-tech text-[#8B8B86] uppercase tracking-wider">
                   ARCHITECTURE & PURPOSE
@@ -219,7 +224,6 @@ export function FeaturedWork() {
                 <p>{selectedProject.longDescription}</p>
               </div>
 
-              {/* Tech Stack */}
               <div className="mb-8">
                 <h4 className="text-xs font-mono-tech text-[#8B8B86] uppercase tracking-wider mb-3">
                   TECHNOLOGIES USED
@@ -236,8 +240,7 @@ export function FeaturedWork() {
                 </div>
               </div>
 
-              {/* Footer Links */}
-              <div className="flex items-center justify-between pt-6 border-t border-white/10">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-6 border-t border-white/10">
                 <span className="text-xs font-mono-tech text-[#8B8B86]">
                   STATUS: COMPLETED & ACTIVE
                 </span>
@@ -251,17 +254,6 @@ export function FeaturedWork() {
                     >
                       <span>LIVE DEMO</span>
                       <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  )}
-                  {selectedProject.github && (
-                    <a
-                      href={selectedProject.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-full glass-panel border border-white/10 text-white hover:border-white/30 transition-colors"
-                      aria-label="GitHub Repository"
-                    >
-                      <FaGithub className="w-4 h-4" />
                     </a>
                   )}
                 </div>
