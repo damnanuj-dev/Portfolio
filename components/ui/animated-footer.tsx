@@ -501,11 +501,11 @@ export function AnimatedFooter({
       style={{ backgroundColor: background, color: textColor, containerType: "inline-size" }}
     >
       {/* Top utility row */}
-      <div className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 pt-8 flex items-center justify-between text-xs font-mono-tech text-[#8B8B86]">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-6 sm:pt-8 flex items-center justify-between gap-3 text-[10px] sm:text-xs font-mono-tech text-[#8B8B86]">
         <span>EDITION // 2026</span>
         <button
           onClick={scrollToTop}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel border border-white/10 hover:border-white/20 text-[#F3F1EA] transition-all cursor-pointer text-[11px]"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel border border-white/10 hover:border-white/20 text-[#F3F1EA] transition-all cursor-pointer text-[10px] sm:text-[11px]"
           aria-label="Back to top"
         >
           <span>BACK TO TOP</span>
@@ -532,7 +532,7 @@ export function AnimatedFooter({
       </div>
 
       {/* Display headings */}
-      <div className="absolute inset-x-0 bottom-0 flex items-end justify-center gap-4 p-8 pb-20 md:pb-24">
+      <div className="absolute inset-x-0 bottom-0 flex items-end justify-center gap-2 sm:gap-4 p-4 pb-20 sm:p-8 sm:pb-20 md:pb-24">
         {headingLines.map((word, wi) => (
           <h2
             key={`${word}-${wi}`}
